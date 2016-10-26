@@ -79,14 +79,28 @@ attr_accessor :board
 
 
 			checkMove(from,to) 
-			# binding.pry
-			@board[from].checkPiece(from,to)
-			move(from, to) 
+			if @board[from].checkPiece(from,to) == false
+				getMove
+			else
+				move(from, to) 
+			end
 
 		end
 
 
 		def checkMove(from,to)
+
+			if  @board[from] == nil
+					puts "Attention! There is no piece there."
+					getMove
+				elsif @board[to] != nil && @board[to].color == @board[from].color
+					puts "Attention! you already have a piece there."
+					getMove
+				elsif @board[from] == @board[to]
+					puts "You have to move a piece!"
+					getMove
+					
+			end
 			    	
     		from.each do |x| 
 
@@ -108,26 +122,50 @@ attr_accessor :board
 
 		end			
 
-		def capture
-			puts "capture!"
-		end   
-
-
 		def move(from,to)
-
-# binding.pry
 				
-				if  @board[from] == nil
-					puts "Attention! There is no piece there."
-				elsif @board[to].color == @board[from].color
-					puts "Attention! you already have a piece there."
-				elsif @board[to].color != @board[from].color
-					capture
+				if @board[to] != nil && @board[to].color != @board[from].color
+					puts @board[to].name.to_s + " has been captured!"
+					@board[to] = @board[from]
+					@board[from] = nil
 				else	
 					@board[to] = @board[from]
 					@board[from] = nil
 				end
+
+				puts @board[to].name.to_s + " is now in " + to.to_s
+
+				printBoard
+				getMove
 		
+		end
+
+		def printBoard
+
+			@board.each do |position,piece|
+
+				case 
+
+				when piece == nil && position[1] != 7
+					
+					print '[]'
+					
+				when piece == nil && position[1] == 7
+
+					puts '[]'
+
+				when piece != nil && position[1] == 7
+
+					puts piece.name.to_s
+
+				when piece != nil && position[1] != 7
+	
+					print piece.name.to_s				
+				
+
+				end
+			end
+
 		end
 
 end
@@ -136,6 +174,7 @@ end
 
 class Piece
 attr_reader :name, :piece, :color
+	
 	def initialize(name,color)
 		@name=name	
 		@color=color	
@@ -148,9 +187,13 @@ class Rook < Piece
 
 	def checkPiece(from,to)
 
+		if from[0] != to[0] && from[1] != to[1]
 
-puts "we'll check what a Rook can do"
-		# binding.pry
+			puts "Rooks can't move like that!" 
+			return false
+
+		end
+		
 
 	end
 				
