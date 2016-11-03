@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Online Calculator</title>
+</head>
+<body>
+  <h1>Calculator</h1>
+
+
+<form action="/calculate_add" method="POST">
+
+<input type="number" name="first_number" placeholder="number"> 
+<select name="operation" >
+  <option value="add">+</option>
+  <option value="subs">-</option>
+  <option value="mul">x</option>
+  <option value="div">:</option>
+</select>
+<input type="number" name="second_number" placeholder="number">
+<button type="submit">Go!</button>
+
+</form>
+
+<% if @solution %>
+<p>The result is <b><%= @solution %></b></p>
+<% end %>
+
+</body>
+</html>
