@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<title><%= @post.title %> - Lori's IronBlog</title>
+	<link rel="stylesheet" type="text/css" href="/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+</head>
+
+<body>
+	
+	<div class="main">
+	<div class="blog-body">
+
+		<h1 class="maintitle">Lori's IronBlog</h1>
+
+			
+				<div class="blogpost">
+
+				 <h1><a href="/ironblog/post/<%= @post.title %>"><%= @post.title %></a></h1>
+				 <p class="date"><%= @post.date_created.strftime("%Y-%m-%d") %>
+				 <p> <%= @post.text %> </p>
+					
+				 <hr/>
+				 <p><a href="/ironblog">Go back to the home page</a></p>
+
+				</div>
+
+			
+
+	</div>
+	</div>
+
+	<aside>
+	<div class="right-column">
+
+		<img src="/logo.png" alt="ironhack logo" class="logo" />
+		<p>This blog is an exercise for the Ironhack bootcamp.</p>
+
+	</div>
+	</aside>
+
+
+</body>
+
+</html>

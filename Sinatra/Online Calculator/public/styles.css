@@ -10,5 +10,5 @@ p {font-size:2rem;color:#222;}
 input,select,button {height:35px; font: 20px 'Raleway';}
 .buttons form {display:inline-block;margin:5px 15px;}
 .results_box {height:auto; text-align:center;}
-.results form, .results select, .results button {display:inline-block;margin:15px 0px;}
+.results form, .results select, .results button {display:inline-block;margin:5px 0px;}
 
