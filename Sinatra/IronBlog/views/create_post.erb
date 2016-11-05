@@ -6,7 +6,7 @@
 
 	<meta charset="UTF-8">
 	<title>Create Post - Lori's IronBlog</title>
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 
 </head>
@@ -18,10 +18,22 @@
 
 		<h1 class="maintitle">Create post - Lori's IronBlog</h1>
 
-			
-				
+			<form action="/create_post" method="POST">
 
-			
+			<input type="text" name="blog_title" placeholder="Title">
+
+			<br/>
+
+			<textarea class="blog_text" type="text" name="blog_text" placeholder="Write something..."></textarea>
+
+			<br/>
+				
+			<button type="submit">Save</button>
+
+			</form>
+	
+		<br/><hr/> <p><a href="/">Go back to the home page</a></p>
+	
 
 	</div>
 	</div>
@@ -29,8 +41,9 @@
 	<aside>
 	<div class="right-column">
 
-		<img src="logo.png" alt="ironhack logo" class="logo" />
+		<img src="/logo.png" alt="ironhack logo" class="logo" />
 		<p>This blog is an exercise for the Ironhack bootcamp.</p>
+
 
 	</div>
 	</aside>

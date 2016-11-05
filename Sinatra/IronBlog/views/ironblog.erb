@@ -6,7 +6,7 @@
 
 	<meta charset="UTF-8">
 	<title>Lori's IronBlog</title>
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 
 </head>
@@ -22,9 +22,9 @@
 
 				<div class="blogpost">
 
-				 <h1><a href="/ironblog/post/<%= post.url %>"><%= post.title %></a></h1>
+				 <h1><a href="/post/<%= post.url %>"><%= post.title %></a></h1>
 				 <p class="date"><%= post.date_created.strftime("%Y-%m-%d") %>
-				 <p> <%= post.text %> </p>
+				 <!-- <p> <%= post.text %> </p> -->
 				</div>
 
 			<% end %>
@@ -32,13 +32,8 @@
 	</div>
 	</div>
 
-	<aside>
-	<div class="right-column">
-		<img src="logo.png" alt="ironhack logo" class="logo" />
-		<p>This blog is an exercise for the Ironhack bootcamp.</p>
+<%= erb :aside %>
 
-	</div>
-	</aside>
 
 
 </body>

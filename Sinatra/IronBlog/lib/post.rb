@@ -16,7 +16,8 @@ class Post
 		@title = title
 		@text = text
 		@date_modified = Time.now
-
+		
+		
 	end	
 
 	def date_created
