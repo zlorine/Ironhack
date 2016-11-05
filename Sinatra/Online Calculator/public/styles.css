@@ -1,0 +1,14 @@
+body {
+	background-image: url("background-tile.jpg");
+    background-repeat: repeat;
+	background-color:#e9e9e9;
+	padding:2rem;font-family: 'Raleway', sans-serif;text-align:center;}
+
+h1 {font-size:3.2rem;color:#222;}
+p {font-size:2rem;color:#222;}
+.calculator {width:40%;height:220px;padding:1rem;padding-top:1.2rem;display:inline-block;background-color:white;border:2px solid #222;}
+input,select,button {height:35px; font: 20px 'Raleway';}
+.buttons form {display:inline-block;margin:5px 15px;}
+.results_box {height:auto; text-align:center;}
+.results form, .results select, .results button {display:inline-block;margin:15px 0px;}
+

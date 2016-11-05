@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Online Calculator</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Calculator</h1>
+
+	<div class="calculator">
+
+		<form action="/calculate_add" method="POST">
+
+			<input type="number" name="first_number" placeholder="number" <% if @picked != nil %> value="<%=@picked.to_i%>" <% end %> > 
+				<select name="operation" >
+				  <option value="add">+</option>
+				  <option value="subs">-</option>
+				  <option value="mul">x</option>
+				  <option value="div">:</option> 
+				</select>
+			<input type="number" name="second_number" placeholder="number">
+			<button type="submit">Go!</button>
+
+		</form>
+
+		<% if @solution != nil %>
+		<p>The result is <b><%= @solution %></b>
+
+			<div class="buttons"> 
+				<form action="/delete_result" method="POST">
+				<button type="submit" name="delete" value="yes">Delete</button>
+				</form>
+				<form action="/save_result" method="POST">
+				<button type="submit" name="save" value="yes">Save</button>
+				</form>
+			</div>
+
+		</p>
+		<% else %>
+		<p>Welcome to the Online Calculator!<br/><span style="font-size:1.4rem">AKA the only-between-2-numbers calculator</span></p>
+		<% end %>
+
+	</div>
+
+	<div class="results">
+		<p>Use a previous result</p>
+		
+		<form action="/reuse" method="POST">
+		<select name="results" class="results_box" multiple>
+		<% if @results != nil %> 
+		<% list = @results.reverse
+		list[0..4].each do |result| %>
+
+		  <option value="<%= result %>"> <%= result %> </option>
+
+		<% end %> 
+		<% end %>  
+		</select>
+
+		<br/>
+
+		<button type="submit">Use me!</button>
+		</form>
+		
+
+	</div>
+
+</body>
+</html>
