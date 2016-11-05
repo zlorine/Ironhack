@@ -4,11 +4,15 @@ require 'pry'
 require "./lib/calc.rb"
 enable :sessions
 
-get "/string_calculator" do
+get "/calculator" do
+
 @first_number = session[:first_number]
 @second_number = session[:second_number]
 @solution = session[:solution]
-erb(:string_calculator)
+@picked = session[:picked]
+@results = session[:results]
+erb(:calculator)
+
 end 
 
 post "/calculate_add" do
@@ -20,8 +24,37 @@ first_number = session[:first_number]
 second_number = session[:second_number]
 calc = Calculator.new
 session[:solution] = calc.calculate(operation,first_number,second_number)
-redirect to "/string_calculator"
-
+redirect to "/calculator"
 
 end
 
+post "/delete_result" do
+	if params[:delete] == "yes"
+		session[:solution] = nil
+		@results = session[:results]
+		erb(:calculator)
+		redirect to "/calculator"
+	end
+end
+
+
+post "/save_result" do
+
+	session[:results].to_a << session[:solution]
+	session[:solution]
+	@results = session[:results]
+	binding.pry
+	erb(:calculator)
+	redirect to "/calculator"
+
+end
+
+post "/reuse" do
+
+	session[:picked] = params[:results]
+	@results = session[:results]
+	erb(:calculator)
+	redirect to "/calculator"
+
+
+end
