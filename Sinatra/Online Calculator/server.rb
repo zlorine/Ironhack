@@ -3,6 +3,8 @@ require "sinatra/reloader"
 require 'pry'
 require "./lib/calc.rb"
 enable :sessions
+array_of_results = []
+
 
 get "/calculator" do
 
@@ -10,6 +12,7 @@ get "/calculator" do
 @second_number = session[:second_number]
 @solution = session[:solution]
 @picked = session[:picked]
+# binding.pry
 @results = session[:results]
 erb(:calculator)
 
@@ -37,13 +40,11 @@ post "/delete_result" do
 	end
 end
 
-
+ 
 post "/save_result" do
-
-	session[:results].to_a << session[:solution]
-	session[:solution]
+	array_of_results << session[:solution]
+	session[:results] = array_of_results
 	@results = session[:results]
-	binding.pry
 	erb(:calculator)
 	redirect to "/calculator"
 
@@ -51,8 +52,10 @@ end
 
 post "/reuse" do
 
+	session[:picked] = nil
 	session[:picked] = params[:results]
 	@results = session[:results]
+	# binding.pry
 	erb(:calculator)
 	redirect to "/calculator"
 
