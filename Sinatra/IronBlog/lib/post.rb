@@ -12,12 +12,10 @@ class Post
 	end
 
 	def update(title,text)
-
 		@title = title
 		@text = text
 		@date_modified = Time.now
-		
-		
+		self	
 	end	
 
 	def date_created
