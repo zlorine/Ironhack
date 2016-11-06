@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<title>Edit Post - Lori's IronBlog</title>
+	<link rel="stylesheet" type="text/css" href="/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+	<script type="text/javascript">
+	$(function() {
+    $('textarea').val();
+    });
+	</script>
+
+</head>
+
+<body>
+	
+	<div class="main">
+	<div class="blog-body">
+
+		<h1 class="maintitle">Edit post - Lori's IronBlog</h1>
+
+			<form action="/edit_post/<%=@post.url%>" method="put">
+
+			<input type="text" name="blog_title" value="<%= @post.title %>">
+
+			<br/>
+
+			<textarea class="blog_text" type="text" name="blog_text" placeholder="<%= @post.text %>"><%= @post.text %></textarea>
+
+			<br/>
+				
+			<button type="submit">Save</button>
+
+			</form>
+	
+		<br/><hr/> <p><a href="/">Go back to the home page</a></p>
+	
+
+	</div>
+	</div>
+
+	<aside>
+	<div class="right-column">
+
+		<img src="/logo.png" alt="ironhack logo" class="logo" />
+		<p>This blog is an exercise for the Ironhack bootcamp.</p>
+
+
+	</div>
+	</aside>
+
+
+</body>
+
+</html>

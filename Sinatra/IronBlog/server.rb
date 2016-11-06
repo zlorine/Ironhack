@@ -53,9 +53,10 @@ end
 
 post "/edit_post" do
 
-	@post = session[:post]
-	@post.update(params[:blog_title],params[:blog_text])
+	
+	@post = session[:post].update(params[:blog_title],params[:blog_text])
 	@list_of_posts = blog.latest_posts
+	# credo che session crea una nuova instancia invece di salvare l'anteriore
 	erb(:ironblog)
 	redirect to "/"
 

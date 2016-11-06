@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<title>Edit - Lori's IronBlog</title>
+	<link rel="stylesheet" type="text/css" href="/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+</head>
+
+<body>
+	
+	<div class="main">
+	<div class="blog-body">
+
+		<h1 class="maintitle">Edit - Lori's IronBlog</h1>
+		<h2>Click on a post to edit it</h2>
+			<% @list_of_posts.each do |post| %>
+
+				<div class="blogpost">
+
+				 <h1><a href="/edit_post/<%= post.url %>"><%= post.title %></a></h1>
+				 
+				</div>
+
+			<% end %>
+
+	</div>
+	</div>
+
+<%= erb :aside %>
+
+
+
+</body>
+
+</html>
