@@ -1,8 +1,8 @@
 require "sinatra"
 require "sinatra/reloader"
 require 'pry'
-require "./lib/blog.rb"
-require "./lib/post.rb"
+require_relative "./lib/blog.rb"
+require_relative "./lib/post.rb"
 enable :sessions
 
 
@@ -30,10 +30,19 @@ get "/create_post" do
 	erb(:create_post)
 end
 
+
+get "/no_post" do
+	erb(:no_post)
+end
+
 post "/create_post" do
 
+	if params[:blog_title] == "" 
+	redirect to "/no_post"
+	else
 	@@blog.add_post(Post.new(params[:blog_title],params[:blog_text]))
 	redirect to "/"
+	end
 
 end
 
@@ -46,7 +55,6 @@ end
 
 get "/edit_post/:url" do
 	@post = @@blog.list_of_posts.find {|post| post.url == params[:url].to_s}
-	# session[:post] = @post
 	erb(:edit_post)
 
 end
@@ -54,5 +62,10 @@ end
 post "/posts/:url/update" do
 	post = @@blog.list_of_posts.find { |post| post.url == params[:url] }
 	post.update(params[:blog_title], params[:blog_text])
+	redirect to "/"
+end
+
+post "/posts/:url/delete" do
+	@@blog.list_of_posts.delete_if { |post| post.url == params[:url] }
 	redirect to "/"
 end

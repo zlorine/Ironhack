@@ -1,8 +1,8 @@
 html, body {height:100%;}
-body {padding: 10px 120px;font-family: 'Roboto Slab', serif;background-color:#e9e9e9;position:relative}
+body {padding: 0px;font-family: 'Roboto Slab', serif;background-color:#e9e9e9;position:relative}
 
 .main {width:80%;position:relative;float:left;}
-.blog-body {padding:20px;}
+.blog-body {padding: 20px 100px;}
 .maintitle {color: grey;font-size: 3rem;margin: 5px 0px 60px 0px;}
 .blogpost{    
 	margin: 40px 0px 20px 0px;
@@ -13,17 +13,33 @@ body {padding: 10px 120px;font-family: 'Roboto Slab', serif;background-color:#e9
     background-color: white;
 }
 h1 a {color:#222;text-decoration: none;}
+button.delete_button {font: 1rem 'Roboto Slab';background: white;border: 0;padding: 0;text-decoration: underline;color: #222;}
 
 
 
 /* RIGHT COLUMN */
 aside{width:20%;height:100%;margin:0;float:right;position:relative;}
-.right-column {width:100%;margin:0;padding:20px;padding-top: 50px;background-color:#222;height:100%;}
+.right-column {width: auto;margin:0;padding:20px;padding-top: 50px;background-color:#222;height:100%;}
 .right-column p {color:white;}
 .write a {color:whitesmoke;font-size:2.2rem;text-decoration: none;text-transform: uppercase;}
 .write {border:2px solid whitesmoke;padding:10px;margin-top:50px;}
+.edit {margin-top:25px;}
 
 /*CREATE POST */
 input {width:60%; border:1px solid #222; margin-bottom: 20px;min-height:60px;padding:10px;font:1.8rem 'Roboto Slab';}
 textarea {height:50vh;width:60%; border:1px solid #222; margin-bottom: 20px;min-height:60px;padding:10px;font:1.6rem 'Roboto Slab';}
-button {font:1.4rem 'Roboto Slab';}
+button {font:1.4rem 'Roboto Slab';margin-bottom:5px;}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 960px) {
+
+body {padding: 10px 10px;}
+.main {width:100%;height:auto;position:relative;float:left;}
+.blog-body {padding:5px;}
+aside{width:100%;height:auto;margin:0;float:left;}
+.blogpost {width:auto;}
+.right-column {width: auto;} 
+
+}
+
