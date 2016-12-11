@@ -1,5 +1,4 @@
 require 'pry'
-# require './poker.txt'
 
 class Poker
 attr_accessor :count1, :count2
