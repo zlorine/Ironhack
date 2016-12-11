@@ -201,5 +201,4 @@ SUITS =  {
 end
 
 test = Poker.new
-Round.new(["5H","6H","7H","4H","3H"],["3C","3S","8S","8D","TD"]);
 
