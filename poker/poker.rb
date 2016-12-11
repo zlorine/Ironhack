@@ -176,10 +176,6 @@ SUITS =  {
 		# we select those elements which 'count' 2 times.
 	end
 
-	def two_pairs
-
-	end
-
 	def tris
 		tris = @values.select {|value| @values.count(value) == 3}
 		@score = tris.uniq!
