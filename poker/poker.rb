@@ -1,10 +1,21 @@
 require 'pry'
+# require './poker.txt'
 
 class Poker
 attr_accessor :count1, :count2
 	def initialize
 		@@count1 = 0
 		@@count2 = 0
+		@@count3 = 0
+		File.open("./poker.txt") do |file|
+ 		file.each_line do |line|
+   		ar = line.split(' ')
+   		Round.new(ar[1..5], ar[6..10]);
+  		end
+		end
+		puts "Player 1 wins #{@@count1} times!"
+		puts "Player 2 wins #{@@count2} times!"
+		puts "and there have been #{@@count3} draws!"
 	end
 end
 
@@ -21,8 +32,9 @@ class Round < Poker
 		pl1_wins
 		elsif pl1[0] == pl2[0]
 			if pl1[1] > pl2[1]
-			pl1wins
+			pl1_wins
 			elsif pl1[1] == pl2[1]
+			draw
 			else
 			pl2_wins
 			end
@@ -33,11 +45,14 @@ class Round < Poker
 
 	def pl1_wins
 		@@count1 = @@count1 + 1
-		puts "player 1 wins!"
 	end
 
 	def pl2_wins
 		@@count2 = @@count2 + 1
+	end
+
+	def draw
+		@@count3 = @@count3 + 1
 	end
 
 end
