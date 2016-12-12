@@ -23,11 +23,13 @@ class Round < Poker
 	def initialize(pl1,pl2)
 		@pl1 = Hand.new(pl1)
 		@pl2 = Hand.new(pl2)
+		p @pl1.result
+		p @pl2.result
+		puts "__________"
 		compare(@pl1.result,@pl2.result)
 	end
 
 	def compare(pl1,pl2)
-# binding.pry
 		if pl1[0] > pl2[0]	
 		pl1_wins
 		elsif pl1[0] == pl2[0]
@@ -219,5 +221,5 @@ SUITS =  {
 
 end
 
-test = Poker.new
+Poker.new
 
