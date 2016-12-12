@@ -9,7 +9,7 @@ attr_accessor :count1, :count2
 		File.open("./poker.txt") do |file|
  		file.each_line do |line|
    		ar = line.split(' ')
-   		Round.new(ar[1..5], ar[6..10]);
+   		Round.new(ar[0..4], ar[5..9]);
   		end
 		end
 		puts "Player 1 wins #{@@count1} times!"
@@ -27,16 +27,26 @@ class Round < Poker
 	end
 
 	def compare(pl1,pl2)
+# binding.pry
 		if pl1[0] > pl2[0]	
 		pl1_wins
 		elsif pl1[0] == pl2[0]
+			
 			if pl1[1] > pl2[1]
 			pl1_wins
 			elsif pl1[1] == pl2[1]
-			draw
+				if pl1[2] > pl2[2]
+					pl1_wins
+				elsif pl1[2] < pl2[2]
+					pl2_wins
+				else
+				draw
+				end
+
 			else
 			pl2_wins
 			end
+
 		else
 			pl2_wins
 		end
@@ -105,7 +115,8 @@ SUITS =  {
 		end
 		@values = []
 		@suits = []
-		@result = evaluate
+		@result = []
+		evaluate
 	end
 
 	def evaluate
@@ -126,32 +137,43 @@ SUITS =  {
 		if flush 
 			if straight
 				if royal
-					@result = [RANKS.key(:royal_flush)]
+					@result << RANKS.key(:royal_flush)
+					@result << highest
 				elsif						
-					@result = [RANKS.key(:straight_flush)]
+					@result << RANKS.key(:straight_flush)
+					@result << highest
 				end
 				elsif 
-					@result = [RANKS.key(:flush)]
+					@result << RANKS.key(:flush)
+					@result << highest
 			end
 
 		elsif poker
-					@result = [RANKS.key(:poker)]
+					@result << RANKS.key(:poker)
+					@result << @score[0].to_i
 		elsif house
-					@result = [RANKS.key(:full_house)]
+					@result << RANKS.key(:full_house)
+					@result << @score[0].to_i
 		elsif straight
-					@result = [RANKS.key(:straight)]
+					@result << RANKS.key(:straight)
+					@result << highest
 		elsif tris
-					@result = [RANKS.key(:tris)]
+					@result << RANKS.key(:tris)
+					@result << @score[0].to_i
 		elsif pair
-			if @score.length == 2
-					@result = [RANKS.key(:two_pairs)]
+			if @score_pair.length == 2
+					@result << RANKS.key(:two_pairs)
+					@result << @score_pair.max
 			else
-					@result = [RANKS.key(:pair)]
+					@result << RANKS.key(:pair)
+					@result << @score_pair[0].to_i
 			end
 		else
-					@result = [RANKS.key(:empty)]			
+					@result << RANKS.key(:empty)
+					@result << highest	
 		end
 		@result << highest
+
 	end
 
 	def flush
@@ -160,6 +182,7 @@ SUITS =  {
 	end
 
 	def straight
+		@score = highest
 		@values.each_cons(2).all? {|x, y| y == x + 1}
 		# each cons takes pairs of 2 consecutive numbers (not mathematically, but from the array), 
 		# then we check for the second number to be always one more than the second
@@ -172,7 +195,7 @@ SUITS =  {
 
 	def pair
 		duplicates = @values.select {|value| @values.count(value) == 2}
-		@score = duplicates.uniq!
+		@score_pair = duplicates.uniq!
 		# we select those elements which 'count' 2 times.
 	end
 
@@ -187,7 +210,7 @@ SUITS =  {
 	end
 
 	def house
-		tris == true && pair == true
+		tris && pair
 	end
 
 	def highest
