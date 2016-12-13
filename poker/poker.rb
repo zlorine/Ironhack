@@ -137,7 +137,7 @@ SUITS =  {
 		end
 
 		if flush 
-			if straight
+			if straight || low_straight
 				if royal
 					@result << RANKS.key(:royal_flush)
 					@result << highest
@@ -156,9 +156,9 @@ SUITS =  {
 		elsif house
 					@result << RANKS.key(:full_house)
 					@result << @score[0].to_i
-		elsif straight
+		elsif straight || low_straight
 					@result << RANKS.key(:straight)
-					@result << highest
+					@result << @score
 		elsif tris
 					@result << RANKS.key(:tris)
 					@result << @score[0].to_i
@@ -189,6 +189,11 @@ SUITS =  {
 		# each cons takes pairs of 2 consecutive numbers (not mathematically, but from the array), 
 		# then we check for the second number to be always one more than the second
 		# finally, we use all to make get a true / false result. 
+	end
+
+	def low_straight
+		@score = @values[4]
+		@values[1..4].each_cons(2).all? {|x, y| y == x + 1} && @values[0] == '14'		
 	end
 
 	def royal
