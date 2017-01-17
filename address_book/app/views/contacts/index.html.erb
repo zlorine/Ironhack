@@ -1,0 +1,86 @@
+
+
+
+<style>
+
+body {
+	font-family: helvetica;
+}
+
+ul {
+	padding-top: 100px;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+}
+
+li {
+	display: inline;
+	width: 12%;
+	float: left;
+	border: solid 1px #e9e9e9;
+	padding: 20px;
+	padding-top: 2px;
+	position: relative;
+}
+
+.add  {position: absolute; bottom: 30px; right: 10px; height: auto; width: auto; background-color: #d6d6d6; font-size: 30px; padding: 0 20px;}
+.add a {text-decoration: none; color: green;}
+
+h1 {
+	font-size: 45px;
+
+}
+
+img.peter {
+	width: 50px; 
+	position: absolute;
+	top: 0px; 
+	right: 0px;
+}
+
+button {
+	color: orange;
+	border: 0px;
+	margin-top: 20px;
+	padding: 5px;
+}
+
+.fav button {
+	color: grey;
+}
+
+</style>
+<h1>Peoplez</h1>
+
+<ul>
+  <% @contacts.each do |contact| %>
+    <li  <% if contact.favourite %>  class="fav"  <% end %> >
+    <a href="/<%= contact.name %>"><h3><%= contact.name %></h3></a> 
+    <% if contact.number %>- <%= contact.number %><br/><% end %>
+	<% if contact.address %>- <%= contact.address %><br/><% end %>
+	<% if contact.email_address %>- <%= contact.email_address %><br/><% end %>
+	<% if contact.favourite %><img src="http://www.feirox.com/rivu/2015/02/Family-Guy-The-Quest-for-Stuff-1.png" class="peter" alt="fav dude"/><% end %>
+	<%= form_for contact, url: fav_path(contact.id) do |f| %>
+	<%= f.button 'Make Favourite' %><% end %>	
+	<% end %>
+    </li>
+ 
+</ul>
+
+<div class="add" style="">
+<a href="/new">Add Peoplez</a><br/>
+<a href="/favourites">Favs</a>
+</div>
+
+
+<script>
+
+var favs = document.querySelectorAll('.fav button');
+var newtext = document.createTextNode('Unfav');
+favs.forEach(function(foo){
+foo.innerHTML = "Remove Favourite";
+});
+
+</script>

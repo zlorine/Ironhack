@@ -1,0 +1,18 @@
+<style>
+
+h4 {
+	font-family: helvetica;
+}
+
+a {
+	margin-top: 15px;
+	font-family: helvetica;
+}
+</style>
+<h4><%= @contact.name %></h4>
+ <% if @contact.number %>- <%= @contact.number %><br/><% end %>
+	<% if @contact.address %>- <%= @contact.address %><br/><% end %>
+	<% if @contact.email_address %>- <%= @contact.email_address %><br/><% end %>
+	<% if @contact.favourite %><p><img src="http://www.feirox.com/rivu/2015/02/Family-Guy-The-Quest-for-Stuff-1.png" class="peter" alt="fav dude"/></p><% end %>
+
+<p><a href="/">Back to the list</a></p>
