@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 	has_many :products
+	has_many :bids
 
 	validates :name, presence: true
 	validates_presence_of :email_address, message: 'you need to add an email address' 

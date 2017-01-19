@@ -33,3 +33,7 @@ body {font-family: helvetica;}
 #user-list h4 {
 	width: 15%;
 }
+
+input {
+	margin-bottom: 20px;
+}

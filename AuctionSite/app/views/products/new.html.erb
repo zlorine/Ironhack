@@ -1,0 +1,36 @@
+<div id="product-list">
+<h1>Products</h1>
+<h3>Create a new product</h3>
+
+<%= form_for @new_product do |f| %>
+
+  <%= f.label :title %><br>
+
+  <%= f.text_field :title%>
+
+  <br>
+
+  <%= f.label :description %> <br>
+
+  <%= f.text_field :description %>
+
+  <br />
+
+  <%= f.label :date %> <br>
+
+  <%= f.date_field :deadline %>
+
+  <br />
+
+  <%= f.label :user_id %> <br>
+
+  <%= f.number_field :user_id %>
+
+  <br />
+
+
+  <%= f.button %>
+
+<% end %>
+
+</div>
