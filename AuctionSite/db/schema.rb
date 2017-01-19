@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 20170119175820) do
 
   create_table "products", force: :cascade do |t|
+    t.integer  "user_id"
     t.text     "title"
     t.text     "description"
     t.datetime "deadline"
