@@ -1,0 +1,13 @@
+<div id="user-list">
+<h1>Users</h1>
+<p><%= link_to "Create a new user", users_new_path %></p>
+
+<ul>
+<% @users.each do |user| %>
+	<li>
+		<h4><%= link_to user.name, "/users/#{user.id}" %></h4>
+		<p><a href="mailto:<%= user.email_address %>"><%= user.email_address %></a></p>
+	</li>
+<% end %>
+</ul>
+</div>
