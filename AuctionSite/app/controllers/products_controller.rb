@@ -13,7 +13,15 @@ class ProductsController < ApplicationController
 	def show
 		@new_bid = Bid.new
 		@product = Product.find_by(id: params[:id])
-		@bids = @product.bids
+		@deadline = @product.deadline.to_datetime
+		@bids = @product.bids.order(amount: :desc)
+		
+		if  @deadline  > DateTime.now && @bids.size != 0
+			@winner = @bids[0]
+		elsif @bids.size == 0
+			@winner = nil
+		end
+
 	end
 
 	def create
@@ -34,3 +42,4 @@ class ProductsController < ApplicationController
 end
 
 
+#add entry_params
