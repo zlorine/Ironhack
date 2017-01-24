@@ -1,0 +1,58 @@
+<h1><%= @product.title %></h1>
+<h3><%= @product.description %></h3>
+<p>Bids will end on <%= @product.deadline %></h3>
+<p><%= link_to "Back to the list", products_path %></p>
+<p><li><%= link_to("Delete", user_products_path(@product.user_id, @product.id), method: :delete, data: {confirm: "Are you sure?"}) %></li></p>
+
+
+<hr />
+ <h4>Bids</h4>
+ <% if @bids.size == 0 %>
+ 	 <p>There are no bids yet</p>
+ <% else %>
+  <ul>
+	 <% @bids.each do |bid| %>
+	 <li><%= bid.amount %> - by <%= bid.user %></li>
+	 <% end %>
+  </ul>
+ <% end %>
+ 
+
+
+<hr />
+
+<%= form_for [@user, @new_bid] do |f| %>
+
+  <%= f.label :amount %><br>
+
+  <%= f.text_field :amount%>
+
+  <br>
+
+  <%= f.label 'enter user email address' %> <br>
+
+  <%= f.text_field :user_id %>
+
+  <%= f.hidden_field :product_id, :value => params[:id] %>
+
+
+  <br />
+
+  <%= f.button %>
+
+<% end %>
+
+<% if @error_message %>
+
+<script>
+alert(<%= @error_message %>)
+</script>
+
+<% end %> 
+
+
+
+
+
+
+

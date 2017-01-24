@@ -1,0 +1,32 @@
+// Place all the styles related to the User controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#user-list 
+
+{
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	display: inline;
+	padding: 10px;
+	border: solid 1px orange;
+	margin: 2px;
+	width: 25%;
+	float: left;
+	min-height: 250px;
+}
+
+ul.u-product li {
+	min-height: auto;
+	overflow: hidden;
+}
+
+h4 {
+	width: 15%;
+}
+}

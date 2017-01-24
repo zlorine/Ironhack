@@ -1,0 +1,22 @@
+<div id="user-list">
+<h1>Users</h1>
+<p><%= link_to "Create a new user", new_user_path %></p>
+
+<ul>
+<% @users.each do |user| %>
+	<li>
+		<h4><%= link_to user.name, "/users/#{user.id}" %></h4>
+		<p><a href="mailto:<%= user.email_address %>"><%= user.email_address %></a></p>
+		<h4>Products</h4>
+		<ul class="u-product">
+		<% if user.products.size == 0 %>
+		<p>No items to show</p>
+		<% end %>
+		<% user.products.each do |product| %>
+		<li><%= link_to product.title, user_product_path(user, product) %></li>
+		<% end %>
+		</ul>
+	</li>
+<% end %>
+</ul>
+</div>

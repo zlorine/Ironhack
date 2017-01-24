@@ -1,0 +1,15 @@
+<div id="user-list">
+<h1>Products</h1>
+<ul style="float:left;">
+<% @products.each do |product| %>
+	<li>
+		<h4><%= link_to product.title, user_product_path(product.user_id, product.id) %></h4>
+		<p><em><%= product.deadline %></em></p>
+		<p><%= product.description %></p>
+		<p>It belongs to <%= link_to product.user.name, "/users/#{product.user_id}" %></p>
+	</li>
+<% end %>
+</ul>
+<p><%= link_to "See users", users_path %></p>
+
+</div>
