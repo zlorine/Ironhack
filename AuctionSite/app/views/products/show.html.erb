@@ -1,6 +1,8 @@
 <h1><%= @product.title %></h1>
 <h3><%= @product.description %></h3>
 <p><%= link_to "Back to the list", products_path %></p>
+<p>It belongs to <%= link_to @product.user.name, "/users/#{@product.user_id}" %></p>
+
 <p><li><%= link_to("Delete", user_product_path(@product.user_id, @product.id), method: :delete, data: {confirm: "Are you sure?"}) %></li></p>
 
 
@@ -13,13 +15,13 @@
 
 
  <% if @bids.size == 0 && @deadline  > DateTime.now %>
- 	 <p>There are no bids yet</p>
+ 	  <p>There are no bids yet</p>
  <% elsif @bids.size > 0 && @deadline > DateTime.now %>
-	 <ul>
-		 <% @bids.each do |bid| %>
-		 	<li><%= bid.amount %> - by <%= bid.user.name %></li>
-		 <% end %>
-	 </ul>
+	   <ul>
+	   	 <% @bids.each do |bid| %>
+	   	 	<li><%= bid.amount %> - by <%= bid.user.name %></li>
+	   	 <% end %>
+	  </ul>
 	 <p>At the minute, <b><%= @bids[0].user.name %></b> is in the lead!</p>
  <% elsif @winner %>
  	 <p>Bids ended on <%= @deadline.strftime("%m/%d/%Y") %>, <b><%= @winner.user.name %></b> wins the bid with an offer of <%= @winner.amount %></p>

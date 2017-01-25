@@ -4,12 +4,13 @@ class BidsController < ApplicationController
 		
 		product = Product.find_by(id: params[:bid][:product_id]) 
 		user = User.find_by(email_address: params[:bid][:user_id])
-		if product.user_id == user.id
-			flash[:alert] = "can't bid for yourself dude" 
-			redirect_to (:back)
-		else
+		@new_bid = Bid.new(amount: params[:bid][:amount].to_f, user_id: user.id, product_id: product.id)
+		if  @new_bid.valid?
 			flash[:alert] = "bid accepted!" 
-			@new_bid = Bid.create!(amount: params[:bid][:amount].to_f, user_id: user.id, product_id: product.id)
+			@new_bid.save!
+			redirect_to (:back)
+		elsif @new_bid.valid? == false
+			flash[:alert] = @new_bid.errors[:message].reduce{|mess| mess.to_s}
 			redirect_to (:back)
 	    end
 

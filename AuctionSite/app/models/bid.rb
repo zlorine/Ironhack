@@ -4,16 +4,19 @@ class Bid < ApplicationRecord
 
 	validates :amount, presence: true
 	validates_presence_of :user_id, message: 'Every bid needs a bidder!' 
-	validate :bids_before_deadline 
+	validate :bids_after_deadline, :no_bids_to_oneself 
 
-	def bids_before_deadline
-		debugger
+	def bids_after_deadline
 		if DateTime.now > self.product.deadline
-			errors.add(:date, "can't be after deadline")
-	      	redirect(:back)
+			errors.add(:message, "can't be after deadline")
 	    end
   	end
 
+  	def no_bids_to_oneself 
+		if  self.product.user_id == self.user.id
+			errors.add(:message, "can't bid for oneself")
+	    end
+  	end
 end
 
 

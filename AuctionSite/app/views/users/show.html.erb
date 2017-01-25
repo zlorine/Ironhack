@@ -5,6 +5,10 @@
 <p><%= link_to "Create a new user", new_user_path %></p>
 <h4>Products on sale</h4>
 <ul>
-<% @products.each do |p| %>
-<li><%= link_to p.title, user_product_path(@user, p) %></li>
-<% end %>
+		<% if @user.products.size == 0 %>
+		<p>No items to show</p>
+		<% else %>
+			<% @user.products.each do |product| %>
+			<li><%= link_to p.title, user_product_path(@user, p) %>. Bids will en on: <%= @product.deadline %></li>
+			<% end %>
+		<% end %>

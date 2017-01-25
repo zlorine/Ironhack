@@ -11,9 +11,10 @@
 		<ul class="u-product">
 		<% if user.products.size == 0 %>
 		<p>No items to show</p>
-		<% end %>
-		<% user.products.each do |product| %>
-		<li><%= link_to product.title, user_product_path(user, product) %></li>
+		<% else %>
+			<% user.products.each do |product| %>
+			<li><%= link_to product.title, user_product_path(user, product) %></li>
+			<% end %>
 		<% end %>
 		</ul>
 	</li>
