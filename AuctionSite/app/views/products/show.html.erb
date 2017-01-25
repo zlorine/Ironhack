@@ -1,11 +1,17 @@
 <h1><%= @product.title %></h1>
 <h3><%= @product.description %></h3>
 <p><%= link_to "Back to the list", products_path %></p>
-<p><li><%= link_to("Delete", user_products_path(@product.user_id, @product.id), method: :delete, data: {confirm: "Are you sure?"}) %></li></p>
+<p><li><%= link_to("Delete", user_product_path(@product.user_id, @product.id), method: :delete, data: {confirm: "Are you sure?"}) %></li></p>
 
 
 <hr />
  <h4>Bids</h4>
+
+<% if flash[:alert] %> 
+ <p style="color:red"><%= flash[:alert] %></p>
+<% end %> 
+
+
  <% if @bids.size == 0 && @deadline  > DateTime.now %>
  	 <p>There are no bids yet</p>
  <% elsif @bids.size > 0 && @deadline > DateTime.now %>
@@ -16,7 +22,7 @@
 	 </ul>
 	 <p>At the minute, <b><%= @bids[0].user.name %></b> is in the lead!</p>
  <% elsif @winner %>
- 	 <p>Bids ended on <%= @deadline.strftime("%m/%d/%Y") %>, <b><%= @winner.name %></b> wins the bid with an offer of <%= @winner.amount %></p>
+ 	 <p>Bids ended on <%= @deadline.strftime("%m/%d/%Y") %>, <b><%= @winner.user.name %></b> wins the bid with an offer of <%= @winner.amount %></p>
  <% else  %>
  	 <p>Bids ended on <%= @deadline.strftime("%m/%d/%Y") %>, but nobody wanted this thing.</p> 
  <% end %>

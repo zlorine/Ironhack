@@ -3,3 +3,8 @@
 <p><p><%= link_to "Add a new product for this user", "/users/#{@user.id}/products/new" %></p>
 <p><%= link_to "Back to the list", users_path %></p>
 <p><%= link_to "Create a new user", new_user_path %></p>
+<h4>Products on sale</h4>
+<ul>
+<% @products.each do |p| %>
+<li><%= link_to p.title, user_product_path(@user, p) %></li>
+<% end %>

@@ -15,11 +15,8 @@ class ProductsController < ApplicationController
 		@product = Product.find_by(id: params[:id])
 		@deadline = @product.deadline.to_datetime
 		@bids = @product.bids.order(amount: :desc)
-		
-		if  @deadline  > DateTime.now && @bids.size != 0
+		if  @deadline < DateTime.now && @bids.size != 0
 			@winner = @bids[0]
-		elsif @bids.size == 0
-			@winner = nil
 		end
 
 	end

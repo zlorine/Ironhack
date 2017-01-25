@@ -14,3 +14,8 @@ User.create!(name: 'Dolores', email_address: 'dolors@gmail.com')
 Product.create!(user_id: 1, title: 'Sofa', description: 'Viejo pero en buen estado', deadline: Date.tomorrow)
 Product.create!(user_id: 1, title: 'Tele', description: '¿quien la mira hoy en dia?', deadline: Date.tomorrow)
 Product.create!(user_id: 2, title: 'Gameboy', description: 'la caña', deadline: Date.tomorrow)
+
+Bid.create!(user_id: 2, product_id: 3, amount: 45)
+Bid.create!(user_id: 2, product_id: 4, amount: 44)
+Bid.create!(user_id: 1, product_id: 3, amount: 47)
+Bid.create!(user_id: 1, product_id: 4, amount: 46)
