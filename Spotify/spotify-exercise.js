@@ -1,10 +1,16 @@
 $('document').ready(function() {
 
-    function searchArtist() {
+    function searchArtist(event) {
         $(".artist-box").remove();
         $("#artistdisplay").show();
-        $("#single-artist-page").hide()
-        var artistQuery = "https://api.spotify.com/v1/search?type=artist&q=" + $("#artist-js").val();
+        $("#single-artist-page").hide();
+        if(event.currentTarget.id === "artist-r-button"){
+        var randomLetter = Math.random().toString(36).substring(2, 3);
+        var randomNumber = Math.floor(Math.random() * (120)) + 1;
+        var artistQuery = "https://api.spotify.com/v1/search?query=" + randomLetter + "&type=artist&limit=1&market=ES&offset=" + randomNumber
+        } else {
+        var artistQuery = "https://api.spotify.com/v1/search?type=artist&q=" + $("#artist-js").val() + "&market=ES";
+        }
         request = $.get(artistQuery, function(data) {
             displayArtist(data);
             console.log('search done');
@@ -49,7 +55,9 @@ $('document').ready(function() {
     }
 
     function listAlbums(albums) {
-        var $albumsList = $('<ul>', {id: 'albums-list'});
+        var $albumsList = $('<ul>', {
+            id: 'albums-list'
+        });
         $(".single-artist-extras").append($albumsList);
         albums.items.forEach(function(album) {
             // $("#albums-list").append(`<li><a href="https://open.spotify.com/album/${album.id}">${album.name}</a></li>`);
@@ -72,7 +80,7 @@ $('document').ready(function() {
     }
 
     function listSongs(songs) {
-    	$('.songs-list').empty();
+        $('.songs-list').empty();
         songs.items.forEach(function(song) {
             $('.songs-list').append(`<li><a class="song-js" id="${song.id}" href="#">${song.name}</a></li>`);
         });
@@ -94,27 +102,27 @@ $('document').ready(function() {
             // band = $('#' + event.currentTarget.id)
     }
 
-    function displaySongPlayer(event){
-        $player= $('.js-player');
-        if ($player[0].paused == false){ 
+    function displaySongPlayer(event) {
+        $player = $('.js-player');
+        if ($player[0].paused == false) {
             // debugger;
             $player.trigger('pause');
             $('.btn-play').removeClass('btn-paused');
-        }; 
-    	var flag = event.currentTarget;
-    	if(flag){
-    		var $id = event.currentTarget.id
-    	} else {
-    		var $id = event.items[0].id
-    	}
-           request = $.get(`https://api.spotify.com/v1/tracks/${$id}`, function(song){
-           		console.log('inside the song!');
-           		$('.js-player').attr("src", song.preview_url);
-           		$('.player-cover').attr("src", song.album.images[0].url);
-           		$('.author').html(song.artists[0].name);
-           		$('.title').html(song.name);
-           });
-           request.fail(handleError)
+        };
+        var flag = event.currentTarget;
+        if (flag) {
+            var $id = event.currentTarget.id
+        } else {
+            var $id = event.items[0].id
+        }
+        request = $.get(`https://api.spotify.com/v1/tracks/${$id}`, function(song) {
+            console.log('inside the song!');
+            $('.js-player').attr("src", song.preview_url);
+            $('.player-cover').attr("src", song.album.images[0].url);
+            $('.author').html(song.artists[0].name);
+            $('.title').html(song.name);
+        });
+        request.fail(handleError)
     }
 
     function switchDisplays() {
@@ -133,17 +141,17 @@ $('document').ready(function() {
         console.log(error.responseText);
     }
 
-    function playMusic(){
-        	// $('.js-player').trigger(function(){
-        $player= $('.js-player');
-        if ($player[0].paused == false){ 
-        	// debugger;
-        	$player.trigger('pause');
-        	$('.btn-play').removeClass('btn-paused');
+    function playMusic() {
+        // $('.js-player').trigger(function(){
+        var $player = $('.js-player');
+        if ($player[0].paused == false) {
+            // debugger;
+            $player.trigger('pause');
+            $('.btn-play').removeClass('btn-paused');
         } else {
-        	// debugger;
-			$player.trigger('play');
-			$('.btn-play').addClass('btn-paused');
+            // debugger;
+            $player.trigger('play');
+            $('.btn-play').addClass('btn-paused');
         }
     }
 
@@ -152,14 +160,39 @@ $('document').ready(function() {
         $('.btn-play').removeClass('btn-paused');
     }
 
+    function switchSong(event) {
+        var $player = $('.js-player');
+        $player.trigger('stop');
+        displaySongPlayer(event);
+        if ($player[0].paused == false) {
+            $('.btn-play').removeClass('btn-paused');
+        }
+        $player.play();
+    }
+
+    function printTime() {
+        $progBar = $('progress');
+        var current = $('.js-player').prop('currentTime');
+        $progBar.attr("value", current);
+        if (current >= 30) {
+            $('.btn-play').removeClass('btn-paused');
+        }
+        // console.debug('Current time: ' + current);
+    }
+
+
 
     $('#artistdisplay').on('click', '.artist-box', exploreArtist);
     //NOTE TO SELF: as .artist-box does not exist when the DOM is loaded, we bind it to a lower level existing element (#artistdisplay)
     //more info here: http://stackoverflow.com/questions/12235800/refire-ready-event-after-ajax-reload
     $("#artist-s-button").on("click", searchArtist);
+    $("#artist-r-button").on("click", searchArtist);
     $("#backToList").on("click", switchDisplays);
     $('#single-artist-page').on("click", '.album-js', findSongs);
     $('#myModal').on("click", '.song-js', displaySongPlayer);
     $('.btn-play').on("click", playMusic);
+    $('#myModal').on("dblclick", '.song-js', switchSong);
+    $('.js-player').on('timeupdate', printTime);
+
     // $("[data-dismiss='modal']").on("click", stopMusic)
 });
