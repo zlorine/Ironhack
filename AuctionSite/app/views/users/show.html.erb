@@ -8,7 +8,7 @@
 		<% if @user.products.size == 0 %>
 		<p>No items to show</p>
 		<% else %>
-			<% @user.products.each do |product| %>
-			<li><%= link_to p.title, user_product_path(@user, p) %>. Bids will en on: <%= @product.deadline %></li>
+			<% @user.products.each do |p| %>
+			<li><%= link_to p.title, user_product_path(@user, p) %>. Bids will en on: <%= p.deadline.strftime("d%, m%, Y%") %></li>
 			<% end %>
 		<% end %>

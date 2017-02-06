@@ -8,13 +8,13 @@ class Bid < ApplicationRecord
 
 	def bids_after_deadline
 		if DateTime.now > self.product.deadline
-			errors.add(:message, "can't be after deadline")
+			errors.add(:message, "can't bid after the deadline!")
 	    end
   	end
 
   	def no_bids_to_oneself 
 		if  self.product.user_id == self.user.id
-			errors.add(:message, "can't bid for oneself")
+			errors.add(:message, "can't bid for oneself!")
 	    end
   	end
 end

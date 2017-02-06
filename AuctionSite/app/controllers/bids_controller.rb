@@ -8,12 +8,10 @@ class BidsController < ApplicationController
 		if  @new_bid.valid?
 			flash[:alert] = "bid accepted!" 
 			@new_bid.save!
-			redirect_to (:back)
 		elsif @new_bid.valid? == false
 			flash[:alert] = @new_bid.errors[:message].reduce{|mess| mess.to_s}
-			redirect_to (:back)
 	    end
-
+	    redirect_to (:back)
 	end
 
 end
