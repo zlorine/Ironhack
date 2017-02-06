@@ -18,14 +18,14 @@ $('document').ready(function() {
             if (current.images[0]) {
                 var currentImage = current.images[0].url;
             } else {
-                var currentImage = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+                var currentImage = "./no_image_available.jpeg"
             }
             var $div = $("<div>", {
-                id: current.name.replace(/ /g, ''),
+                id: current.name.replace(/[^a-zA-Z\d:]/g, ""),
                 "class": "artist-box"
             });
             $("#artistdisplay").append($div);
-            $('#' + current.name.replace(/ /g, '')).append("<p>" + current.name + "</p>" + "<img src=" + currentImage + " />" + "<span>" + current.id + "</span>")
+            $('#' + current.name.replace(/[^a-zA-Z\d:]/g, "")).append("<p>" + current.name + "</p>" + "<img src=" + currentImage + " />" + "<span>" + current.id + "</span>")
         });
     }
 
@@ -34,7 +34,7 @@ $('document').ready(function() {
         if (artist.images[0]) {
             var artistImage = artist.images[0].url;
         } else {
-            var artistImage = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+            var artistImage = "./no_image_available.jpeg"
         }
         var $spotifyLink = $("<a>", {
             class: "spotify-link"
@@ -95,6 +95,12 @@ $('document').ready(function() {
     }
 
     function displaySongPlayer(event){
+        $player= $('.js-player');
+        if ($player[0].paused == false){ 
+            // debugger;
+            $player.trigger('pause');
+            $('.btn-play').removeClass('btn-paused');
+        }; 
     	var flag = event.currentTarget;
     	if(flag){
     		var $id = event.currentTarget.id
@@ -141,6 +147,11 @@ $('document').ready(function() {
         }
     }
 
+    function stopMusic() {
+        $('.js-player').trigger('stop');
+        $('.btn-play').removeClass('btn-paused');
+    }
+
 
     $('#artistdisplay').on('click', '.artist-box', exploreArtist);
     //NOTE TO SELF: as .artist-box does not exist when the DOM is loaded, we bind it to a lower level existing element (#artistdisplay)
@@ -149,5 +160,6 @@ $('document').ready(function() {
     $("#backToList").on("click", switchDisplays);
     $('#single-artist-page').on("click", '.album-js', findSongs);
     $('#myModal').on("click", '.song-js', displaySongPlayer);
-    $('.btn-play').on("click", playMusic)
+    $('.btn-play').on("click", playMusic);
+    // $("[data-dismiss='modal']").on("click", stopMusic)
 });

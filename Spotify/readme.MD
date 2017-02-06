@@ -1,5 +1,5 @@
-Ajax Exercise: Create a Sptofiy Search / Preview Player using the Spotify API.
+Ajax Exercise: Create a Spotify Search / Preview Player using the Spotify API.
 
-This project initally used CSS Grids but now uses Skeleton CSS to make it compatible with browsers other than Firefox Dev Edition. 
+This page uses CSS Grid so it should be visualised using Firefox Dev Edition (as of Feb 2017).
 
-
+Not mobile friendly (yet).
